@@ -1,0 +1,24 @@
+name: Microservices CI
+
+on:
+  push:
+    paths:
+      - "microservices/**"
+      - ".github/workflows/microservices-ci.yml"
+
+jobs:
+  build-microservices:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build User Service
+        run: docker build -t user-service ./microservices/user-service
+
+      - name: Build Product Service
+        run: docker build -t product-service ./microservices/product-service
+
+      - name: Build Order Service
+        run: docker build -t order-service ./microservices/order-service
