@@ -1,0 +1,26 @@
+name: Monolith App CI
+
+on:
+  push:
+    paths:
+      - "monolith-app/**"
+      - ".github/workflows/monolith-ci.yml"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: |
+          docker build -t monolith-app ./monolith-app
+
+      - name: Run container test
+        run: |
+          docker run -d -p 5000:5000 --name test-container monolith-app
+          sleep 5
+          curl http://localhost:5000/users
