@@ -2,12 +2,10 @@ name: Microservices CI
 
 on:
   push:
-    paths:
-      - "microservices/**"
-      - ".github/workflows/microservices-ci.yml"
+    branches: [ "main" ]
 
 jobs:
-  build-microservices:
+  build:
     runs-on: ubuntu-latest
 
     steps:
